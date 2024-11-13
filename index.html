@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal Landing Page</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body Styles */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #333333; /* Charcoal gray */
+      color: #f5c518; /* Yellow */
+      font-family: Arial, sans-serif;
+    }
+
+    /* Main Container */
+    .container {
+      display: flex;
+      width: 80vw;
+      height: 80vh;
+      overflow: hidden;
+      border: 1px solid #f5c518;
+      background-color: #222222;
+    }
+
+    /* Left Section for Content */
+    .content {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+    }
+
+    .section {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Default Section Visible */
+    .section.active {
+      display: flex;
+    }
+
+    /* Right Section for Video */
+    .video-section {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background-color: #333333;
+    }
+
+    .video {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+    }
+
+    /* Navigation Tabs */
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .tab {
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border: 1px solid #f5c518;
+      border-radius: 4px;
+      background-color: #444444;
+      transition: background-color 0.3s;
+    }
+
+    .tab:hover {
+      background-color: #555555;
+    }
+
+    /* Mobile Layout */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+        width: 100vw;
+      }
+
+      .content {
+        width: 100%;
+      }
+
+      .tabs {
+        flex-direction: column;
+      }
+
+      .video-section {
+        display: none;
+      }
+
+      .mobile-video-invite {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background-color: #444444;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        cursor: pointer;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left Section: Filter Content -->
+    <div class="content">
+      <div class="tabs">
+        <div class="tab" onclick="showSection('what')">What Is It?</div>
+        <div class="tab" onclick="showSection('use-cases')">Use Cases</div>
+        <div class="tab" onclick="showSection('demo')">Demonstration</div>
+        <div class="tab" onclick="showSection('contact')">Contact</div>
+      </div>
+      
+      <div class="section active" id="what">
+        <h2>What Is It?</h2>
+        <p>This is a brief explanation of what the page offers.</p>
+      </div>
+      <div class="section" id="use-cases">
+        <h2>Use Cases</h2>
+        <p>Various scenarios where this content is applicable.</p>
+      </div>
+      <div class="section" id="demo">
+        <h2>Demonstration</h2>
+        <p>Here you can view examples or demos.</p>
+      </div>
+      <div class="section" id="contact">
+        <h2>Contact</h2>
+        <p>Reach out to us with any questions.</p>
+      </div>
+
+      <!-- Mobile video invitation -->
+      <div class="mobile-video-invite" onclick="playFullScreenVideo()" style="display: none;">
+        <p>Click to Play Video</p>
+      </div>
+    </div>
+
+    <!-- Right Section: Video -->
+    <div class="video-section">
+      <video class="video" controls muted loop>
+        <source src="your-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach((section) => {
+        section.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+    }
+
+    function playFullScreenVideo() {
+      const video = document.createElement('video');
+      video.src = 'your-video.mp4';
+      video.controls = true;
+      video.muted = false;
+      video.play();
+      video.requestFullscreen();
+    }
+
+    // Detect if mobile to show video invite
+    if (window.innerWidth <= 768) {
+      document.querySelector('.mobile-video-invite').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
